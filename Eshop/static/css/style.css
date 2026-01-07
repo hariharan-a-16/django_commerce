@@ -2,7 +2,55 @@
     display: none;
 } */
 
+/* Navbar */
 
+
+ .navbar-brand {
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   color: red;
+   font-weight: bolder;
+   font-size: 30px;
+
+    }
+
+
+.collapse{
+ padding-left: 27%;
+ font-weight: bolder;
+  
+ 
+}
+
+
+
+
+
+
+
+
+
+
+/* For Carousel */
+.carousel-item {
+    height: 550px;  
+}
+
+
+.carousel-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;      
+    object-position: center;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .carousel-item {
+        height: 320px;
+    }
+}
+
+/*  For Card */
 .row{
     padding-top: 30px;
     img{
@@ -11,7 +59,7 @@
     }
 }
 
-/* Product Card */
+
 .product-card {
     border: none;
     border-radius: 12px;
@@ -20,45 +68,87 @@
     transition: all 0.3s ease;
 }
 
-/* Hover Effect */
+
 .product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 14px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Product Image */
+
 .product-img {
-    height: 220px;
     object-fit: cover;
     background-color: #f2f2f2;
 }
 
-/* Card Body */
 .product-card .card-body {
     padding: 16px;
 }
 
-/* Title */
 .product-card .card-title {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 8px;
 }
 
-/* Description */
+
 .product-card .card-text {
     font-size: 14px;
     color: #555;
 }
 
-/* Price */
+
 .product-card .price {
     font-size: 18px;
     font-weight: bold;
-    color: #198754; /* Bootstrap green */
+    color: #198754; 
 }
 
-/* Button */
 .product-card .btn {
     border-radius: 8px;
 }
+
+
+/* Search */
+.search {
+    background: #1e1e1e;
+    
+    padding: 4px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.search .form-control {
+    border: none;
+    background: transparent;
+    color: #fff;
+    padding: 8px 16px;
+    width: 220px;
+}
+
+.search .form-control::placeholder {
+    color: #aaa;
+}
+
+.search .form-control:focus {
+    outline: none;
+    box-shadow: white;
+}
+
+
+.search .btn {
+    border-radius: 25px;
+    padding: 6px 18px;
+    background-color: white;
+    color: black;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .search .form-control {
+        width: 160px;
+    }
+}
+
+
