@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Delete product
+{% endblock %}
+
+{% block content %}
+
+<section>
+    <div>
+        <h2 class="text-danger">Are You Sure to delete : {{product.title}}</h2>
+        <form  method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit"> Delete Product</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

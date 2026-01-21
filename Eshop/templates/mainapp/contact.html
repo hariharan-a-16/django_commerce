@@ -1,12 +1,150 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-
+  Contact – Beast
 {% endblock %}
 
-
 {% block content %}
-  Oye contact!
-  <br>
-  Current page : {{current_page}}
+
+<style>
+  .contact-wrapper {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 40px;
+      background: #0f0f0f;
+      border-radius: 14px;
+      box-shadow: 0px 8px 28px rgba(0,0,0,0.35);
+      font-family: 'Poppins', sans-serif;
+      color: #e0e0e0;
+      border: 1px solid #1c1c1c;
+  }
+
+  .contact-header {
+      font-size: 36px;
+      font-weight: 800;
+      text-transform: uppercase;
+      text-align: center;
+      color: #ff2e2e;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+  }
+
+  .contact-tagline {
+      text-align: center;
+      font-size: 18px;
+      color: #b5b5b5;
+      margin-bottom: 30px;
+  }
+
+  .contact-info {
+      margin-top: 25px;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #d2d2d2;
+  }
+
+  .contact-box {
+      background: linear-gradient(135deg, #1a1a1a, #000);
+      padding: 20px 25px;
+      border-radius: 12px;
+      border-left: 6px solid #ff3b3b;
+      margin-bottom: 35px;
+      box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.15);
+  }
+
+  .contact-box p {
+      margin: 8px 0;
+      font-size: 16px;
+  }
+
+  .contact-icons i {
+      margin-right: 10px;
+      color: #ff2e2e;
+  }
+
+  .form-section {
+      margin-top: 40px;
+  }
+
+  .contact-label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
+  }
+
+  .contact-input, .contact-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: #1c1c1c;
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 20px;
+      outline: none;
+  }
+
+  .contact-input:focus, .contact-textarea:focus {
+      border-color: #ff3b3b;
+      box-shadow: 0px 0px 8px rgba(255, 0, 0, 0.3);
+  }
+
+  .contact-btn {
+      background: #ff2e2e;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 16px;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+  }
+
+  .contact-btn:hover {
+      background: #cc2424;
+      transform: translateY(-2px);
+  }
+
+  .current-page {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+  }
+</style>
+
+<div class="contact-wrapper">
+
+    <div class="contact-header">Contact</div>
+    <div class="contact-tagline">We’re here to assist you with any inquiries or support</div>
+
+    <div class="contact-box">
+        <p><strong>Email:</strong> haran4889@gmail.com</p>
+        <p><strong>Phone:</strong> +91 95003 11001</p>
+        <p><strong>Address:</strong> Beast Tactical HQ, Chennai, India</p>
+        <p><strong>Working Hours:</strong> 10 AM – 8 PM (Mon–Sat)</p>
+    </div>
+
+    <div class="form-section">
+        <h3>Send Us a Message</h3>
+
+        <label class="contact-label">Your Name</label>
+        <input type="text" class="contact-input" placeholder="Enter your name">
+
+        <label class="contact-label">Email</label>
+        <input type="email" class="contact-input" placeholder="Enter your email">
+
+        <label class="contact-label">Message</label>
+        <textarea class="contact-textarea" rows="5" placeholder="Write your message..."></textarea>
+
+        <button class="contact-btn">Send Message</button>
+    </div>
+
+    <div class="current-page">
+        Current page : {{ current_page }}
+    </div>
+</div>
+
 {% endblock %}

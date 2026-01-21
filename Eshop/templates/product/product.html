@@ -5,6 +5,9 @@ Products
 {% endblock %}
 
 {% block content %}
+<section class="d-flex justify-content-center align-items-center mt-3">
+        <a href="{% url 'add_product' %}" class="btn btn-success"> Add Product</a>
+</section>
 <div >
 
         {% include 'product/includes/productsSection.html' %}
