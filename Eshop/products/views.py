@@ -29,6 +29,12 @@ def searchProducts(request):
         context ={
             'query' : query,
             'products' : search_results
+    
+        }
+    else:
+        context = {
+            'query' : query,
+            'products' : None
         }
     return render(request, template_name=template, context = context)
 
@@ -47,21 +53,32 @@ class CreateProduct(CreateView):
     # redirection url for successful creation of resource
     success_url = '/'
 
-class ProductDetail(DetailView):
+    
+from django.views.generic.edit import FormMixin
+ # This mixin provides ability to render forms from the `form_class`
+from .forms import ProductImageForm
+
+
+class ProductDetail(FormMixin, DetailView):
     model = Product
     template_name = 'product/product_details.html'  
     context_object_name = 'product'
+    # providing form class for Product Image
+    form_class = ProductImageForm
 
   #Overriding the the querset to pre-fetch
   # and add the product images alongside products
     def get_queryset(self):
         return Product.objects.prefetch_related('images')
 
+
+
 class UpdateProduct(UpdateView):
     model = Product
     template_name = 'product/update_product.html'
     fields='__all__'
     success_url = '/'
+
 
 class DeleteProduct(DeleteView):
     model = Product

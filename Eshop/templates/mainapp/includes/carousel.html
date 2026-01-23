@@ -10,7 +10,7 @@
 
     <div class="carousel-inner">
         {% for carousel_image in carousel_images %}
-        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %}">
+        <div class="carousel-item {% if forloop.counter == 1 %}active{% endif %} homecarousel">
             <!-- <img src="{{carousel_image.img.url}}" class="d-block w-100" alt="..." > -->
             <img src="{{ carousel_image.img.url }}"  class="d-block w-100 carousel-img"  alt="">
 

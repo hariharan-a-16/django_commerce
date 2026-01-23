@@ -41,7 +41,7 @@ Product Details
     }
 </style>
 
-
+<section>
 <div class="container py-5">
 
     <div class="row align-items-start">
@@ -66,14 +66,25 @@ Product Details
                 <div id="productCarousel" class="carousel slide">
                     <div class="carousel-inner">
 
+                        {% if product.images.all %}
                         {% for image in product.images.all %}
                         <div class="carousel-item {% if forloop.first %}active{% endif %}">
                             <img src="{{ image.img.url }}" class="d-block w-100 rounded shadow"
                                 style="max-height:420px; object-fit:cover;">
                         </div>
                         {% endfor %}
+                        {% else %}
+                        <!--===== FALLBACK IMAGE / MESSAGE ===== -->
+                        <div class="carousel-item active">
+                            <div class="d-flex justify-content-center align-items-center bg-light rounded"
+                                style="height:420px; border:2px dashed #ccc;">
+                                <p class="text-muted fw-semibold">No images uploaded yet</p>
+                            </div>
+                        </div>
+                        {% endif %} 
 
                     </div>
+
 
                     <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel"
                         data-bs-slide="prev">
@@ -112,5 +123,15 @@ Product Details
     </div>
 
 </div>
+<div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success"> Upload</button>
+    </form>
+</div>
+
+</section>
 
 {% endblock %}
+
