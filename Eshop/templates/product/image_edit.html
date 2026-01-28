@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Edit Product Image
+{% endblock %}
+
+{% block content %}
+<section>
+   Edit image for {{object.product.title}}
+   <img src="{{image.product.thumbnail.url}}" alt="" class="w-50">
+</section>
+
+<section>
+    <div>
+        <form  method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn-success">Save </button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

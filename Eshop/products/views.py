@@ -1,5 +1,5 @@
-from django.shortcuts import render
-
+from django.shortcuts import render, redirect # redirct is used for after upload to the ne next page
+from django.urls import reverse # it work came the same product page
 from .models import Product
 # Create your views here.
 
@@ -66,11 +66,25 @@ class ProductDetail(FormMixin, DetailView):
     # providing form class for Product Image
     form_class = ProductImageForm
 
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk' :self.object.pk})
+
   #Overriding the the querset to pre-fetch
   # and add the product images alongside products
     def get_queryset(self):
         return Product.objects.prefetch_related('images')
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
 
+        if form.is_valid():
+            image = form.save(commit = False)
+            image.product = self.object
+            image.save()
+
+            return redirect(self.get_success_url())
+        
 
 
 class UpdateProduct(UpdateView):
@@ -85,3 +99,23 @@ class DeleteProduct(DeleteView):
     template_name = 'product/delete_product.html'
     success_url = '/'
 
+# Edit Product Image
+from .models import ProductImage
+
+class EditProductImage(UpdateView):
+    model = ProductImage
+    template_name = 'product/image_edit.html'
+    fields = '__all__'
+
+
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.product.pk})
+    
+class DeleteProductImage(DeleteView):
+    model = ProductImage
+    template_name = 'product/image_del.html'
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('product_details', kwargs={'pk':self.object.product.pk}) 
+    
