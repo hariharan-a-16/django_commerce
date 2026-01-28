@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+{% block title %}Carousel Images{% endblock %}
+
+{% block content %}
+<section class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3 text-info">
+        <h3>Carousel Images</h3>
+        <a href="{% url 'carousel_add' %}" class="btn btn-success">
+            Add Image
+        </a>
+    </div>
+
+    <div class="row g-4">
+        {% for img in images %}
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+
+                <img src="{{ img.img.url }}"
+                     class="card-img-top"
+                     style="height: 200px; object-fit: cover;">
+
+                <div class="card-body">
+                    <h6>{{ img.title }}</h6>
+                    <p class="small text-muted">
+                        {{ img.caption|truncatechars:80 }}
+                    </p>
+
+                    <span class="badge {% if img.active %}bg-success{% else %}bg-secondary{% endif %}">
+                        {% if img.active %}Active{% else %}Inactive{% endif %}
+                    </span>
+                </div>
+
+                <div class="card-footer d-flex gap-2">
+                    <a href="{% url 'carousel_edit' img.pk %}"
+                       class="btn btn-sm btn-warning w-50">Edit</a>
+                    <a href="{% url 'carousel_delete' img.pk %}"
+                       class="btn btn-sm btn-danger w-50">Delete</a>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-muted">No carousel images yet.</p>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,38 @@
+
+{% extends 'base/base.html' %}
+{% block title %}Delete Carousel Image{% endblock %}
+
+{% block content %}
+<section class="container py-5" style="max-width: 600px;">
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h4 class="text-danger mb-3">
+                Confirm Delete
+            </h4>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ object.title }}</strong>?
+            </p>
+
+            <img src="{{ object.img.url }}"
+                 class="img-fluid rounded mb-3">
+
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">
+                    Yes, Delete
+                </button>
+                <a href="{% url 'carousel_list' %}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+            </form>
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}
