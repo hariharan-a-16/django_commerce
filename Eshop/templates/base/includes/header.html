@@ -43,11 +43,11 @@
           aria-label="Search" />
         <button class="btn" type="submit">Search</button>
       </form>
-      
-      
+
+
       <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
 
-        
+
         <li class="nav-item me-3 position-relative">
           <a class="nav-link" href="#">
             <i class="bi bi-cart3 fs-4"></i>
@@ -55,25 +55,31 @@
           </a>
         </li>
 
-       
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-person-circle me-1"></i>
-            Account
+            {% if user.is_authenticated %}
+            {{user.username.capitalize}}
+            {% else %}
+            Hi User!
+            {% endif %}
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#">Register</a></li>
-            <li><a class="dropdown-item" href="#">Login</a></li>
+            {% if user.is_authenticated %}
             <li>
-              <hr class="dropdown-divider">
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="dropdown-item text-danger">Logout</button>
+              </form>
             </li>
-            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'signin' %}">Login</a></li>
+            <li>
+              {% endif %}
           </ul>
-        </li>
-
-      </ul>
-
 
     </div>
   </div>
