@@ -1,0 +1,98 @@
+{% extends 'base/base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<section class="cart-wrapper">
+
+    <h3 class="fw-bold mb-4">Your Cart</h3>
+
+    {% for item in cart_items %}
+    <div class="cart-card mb-3">
+        <div class="row align-items-center">
+
+            <!-- Product Image -->
+            <div class="col-md-3 text-center">
+                <img src="{{ item.product.thumbnail.url }}" class="cart-product-img">
+            </div>
+
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <h5 class="cart-title">{{ item.product.title }}</h5>
+
+                <p class="text-muted mb-1">
+                    Quantity: {{ item.quantity }}
+                </p>
+
+                {% if item.product.discount > 0 %}
+                <span class="cart-discount">{{ item.product.discount }}% OFF</span>
+                <p class="cart-price">₹ {{ item.product.offer_price }}</p>
+                {% else %}
+                <p class="cart-price">₹ {{ item.product.price }}</p>
+                {% endif %}
+
+                <!-- Remove button -->
+                <p class="remove-btn"><i class="bi bi-trash"></i> Remove</p>
+            </div>
+
+            <!-- Quantity Buttons -->
+            <div class="col-md-3 d-flex justify-content-end align-items-center">
+
+                {% if item.quantity == 1 %}
+                <button class="btn btn-danger qty-btn">
+                    <i class="bi bi-trash-fill"></i>
+                </button>
+                {% else %}
+                <button class="btn btn-outline-primary qty-btn">
+                    <i class="bi bi-dash"></i>
+                </button>
+                {% endif %}
+
+                <span class="qty-number">{{ item.quantity }}</span>
+
+                <button class="btn btn-outline-primary qty-btn">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+    {% empty %}
+
+    <div class="cart-empty">
+        Your cart is empty 😢
+    </div>
+
+    {% endfor %}
+
+    <!-- Summary Section -->
+    {% if cart_items %}
+    <div class="summary-box">
+        <p class="summary-title">Price Details</p>
+
+        <div class="summary-row">
+            <span>Total Items</span>
+            <span>{{ cart_items.count }}</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Total Price</span>
+            <span>₹ {{ total_price }}</span>
+        </div>
+
+
+        <div class="summary-row">
+            <span class="total-amount">Grand Total</span>
+            <span class="total-amount">₹ {{ grand_total }}</span>
+        </div>
+
+        <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
+    </div>
+    {% endif %}
+
+</section>
+
+
+
+{% endblock %}

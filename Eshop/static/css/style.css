@@ -170,5 +170,125 @@
     height: 81vh;
 }
 
+/* For Cart*/
 
+/* Main Container */
+.cart-wrapper {
+    max-width: 900px;
+    margin: auto;
+    margin-top: 30px;
+}
+
+/* Cart Card */
+.cart-card {
+    border-radius: 14px;
+    border: 1px solid #e8e8e8;
+    padding: 18px;
+    background: #fff;
+    transition: 0.2s ease-in-out;
+}
+
+.cart-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+/* Product Image */
+.cart-product-img {
+    width: 100%;
+    max-height: 130px;
+    object-fit: contain;
+    border-radius: 10px;
+    background: #f8f9fa;
+    padding: 10px;
+}
+
+/* Product Titles */
+.cart-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+/* Price Section */
+.cart-price {
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.cart-discount {
+    font-size: 0.95rem;
+    color: #dc3545;
+    font-weight: 600;
+}
+
+/* Quantity controls */
+.qty-btn {
+    border-radius: 8px;
+    padding: 4px 10px;
+    margin: 0 6px;
+    font-size: 0.9rem;
+}
+
+.qty-number {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+/* Remove button */
+.remove-btn {
+    color: #dc3545;
+    font-size: 0.85rem;
+    cursor: pointer;
+    margin-top: 8px;
+}
+
+/* Summary Box */
+.summary-box {
+    border-radius: 14px;
+    border: 1px solid #e5e5e5;
+    padding: 20px;
+    background: #fff;
+    margin-top: 20px;
+}
+
+.summary-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.total-amount {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #198754;
+}
+
+/* Checkout Button */
+.checkout-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Empty Cart */
+.cart-empty {
+    font-size: 1.3rem;
+    padding: 25px;
+    background: #f4f4f4;
+    border-radius: 14px;
+    text-align: center;
+    font-weight: bold;
+}
 

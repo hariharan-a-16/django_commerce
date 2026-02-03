@@ -1,16 +1,15 @@
-<section id="products-container" class="container-fluid">
-    <div class="row g-4 mb-5">
+<section id="products-container" class="container my-4" data-add-url = "{% url 'add_to_cart' %}">
+{% csrf_token %}
+    <div class="row g-4">
         {% for product in products %}
-        <div class="col-12 col-sm-6 col-md-4 col-md-4 col-lg-3">
-            {% include 'product/includes/productCard.html' %}
-        </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                {% include 'product/includes/productCard.html' %}
+            </div>
         {% empty %}
-        <div class="col-12 Searchresult">
-            <p class="text-muted">No products available</p>
-        </div>
+            <div class="col-12 text-center">
+                <p class="text-muted">No products available.</p>
+            </div>
         {% endfor %}
-        </div>
+    </div>
+
 </section>
-
-
-
