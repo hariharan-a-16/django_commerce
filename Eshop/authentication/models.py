@@ -11,7 +11,7 @@ class EmailOTP(models.Model):
 
     # let's set a 10 minute expiry window
     def is_expired(self):
-        return timezone,now() > self.created_at + timedelta(minutes=10)
+        return timezone.now() > self.created_at + timedelta(minutes=10)
     
 
     def __str__(self):
