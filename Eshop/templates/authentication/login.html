@@ -1,17 +1,95 @@
 {% extends 'base/base.html' %}
-{% block title %}
-Login
-{% endblock %}
+{% block title %} Login {% endblock %}
 
 {% block content %}
 
-<section>
-    <div class="add">
-        <form  method="post" enctype="multipart/form-data">
+<style>
+    .login-wrapper {
+        max-width: 450px;
+        margin: auto;
+        padding: 40px 20px;
+    }
+
+    .login-card {
+        border-radius: 18px;
+        border: none;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+        padding: 35px 30px;
+        background: #ffffff;
+    }
+
+    .login-title {
+        font-size: 1.9rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 25px;
+        color: #dc3545; /* Same brand color */
+    }
+
+    .auth-btn {
+        background: #dc3545;
+        color: white;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 1.1rem;
+        padding: 10px 0;
+        transition: 0.2s;
+    }
+
+    .auth-btn:hover {
+        background: #b52a38;
+        color: #fff;
+        transform: scale(1.02);
+    }
+
+    .login-footer {
+        text-align: center;
+        margin-top: 15px;
+        color: #555;
+    }
+
+    .login-footer a {
+        color: #dc3545;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .login-footer a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<section class="login-wrapper">
+    <div class="login-card">
+
+        <h2 class="login-title">Login</h2>
+
+        <form method="post">
             {% csrf_token %}
-            {{form.as_p}}
-            <button type="submit" class="btn btn-success">Login</button>
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger py-2">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            {% for field in form %}
+                {% include 'base/includes/basic_form_field.html' %}
+            {% endfor %}
+
+            <button type="submit" class="btn auth-btn w-100 mt-2">
+                Login
+            </button>
+
+            <p class="login-footer">
+                Don't have an account?  
+                <a href="{% url 'signup' %}">Sign up here</a>
+            </p>
+
+            <p class="login-footer"><a href="{%url 'send_otp' %}">Forget Password</a></p>
         </form>
+
     </div>
 </section>
+
 {% endblock %}
