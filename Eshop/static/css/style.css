@@ -285,3 +285,6 @@
     font-weight: bold;
 }
 
+.cart-wrapper{
+    min-height: 80vh;
+}

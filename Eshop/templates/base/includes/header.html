@@ -21,6 +21,7 @@
           <a class="nav-link  {% if current_page == 'contact' %} active {% endif %}"
             href="{% url 'contact_page'%}">Contact</a>
         </li>
+        {% if user.is_staff %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Manage
@@ -31,12 +32,12 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            {% endif %}
+
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+
+       
       </ul>
       <form class="d-flex search" role="search" method="get" action="{% url 'search_products' %}">
         <input name='q' value='{{query}}' class="form-control me-2" type="search" placeholder="Search"
@@ -47,15 +48,16 @@
 
       <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
 
-
+        {% if not user.is_staff %}
         <li class="nav-item me-3 position-relative">
           <a class="nav-link" href="{% url 'view_cart' %}">
             <i class="bi bi-cart3 fs-4"></i>
             {% if user.is_authenticated %}
-            <span class="cart-badge">0</span>
+            <span class="cart-badge" id="cart-count">0</span>
              {% endif %}
           </a>
         </li>
+        {% endif %}
 
 
         <li class="nav-item dropdown">
