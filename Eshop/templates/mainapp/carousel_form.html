@@ -1,27 +1,37 @@
-
 {% extends 'base/base.html' %}
 {% block title %}Carousel Image{% endblock %}
 
 {% block content %}
-<section class="container py-5" style="max-width: 700px;">
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
 
-    <h3 class="mb-4">
-        {% if object %}Edit{% else %}Add{% endif %} Carousel Image
-    </h3>
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
+                    <h4 class="text-center fw-bold mb-4">
+                        {% if object %}Edit{% else %}Add{% endif %} Carousel Image
+                    </h4>
 
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-success">
-                Save
-            </button>
-            <a href="{% url 'carousel_list' %}" class="btn btn-secondary">
-                Cancel
-            </a>
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                Save
+                            </button>
+
+                            <a href="{% url 'carousel_list' %}" class="btn btn-secondary">
+                                Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
         </div>
-    </form>
-
-</section>
+    </div>
+</div>
 {% endblock %}

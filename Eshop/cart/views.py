@@ -56,3 +56,42 @@ def get_cart_item_count(request):
     return JsonResponse({
         'cart_count': CartItem.objects.filter(user=request.user).count()
     })
+
+
+
+# for Increse & Decrease in Cart page
+
+from django.views.decorators.http import require_POST
+
+@require_POST
+@login_required
+def update_quantity(request):
+    item_id = request.POST.get("item_id")
+    action = request.POST.get("action")
+
+    item = get_object_or_404(CartItem, id=item_id, user=request.user)
+
+    if action == "increase":
+        item.quantity += 1
+
+    elif action == "decrease":
+        if item.quantity > 1:
+            item.quantity -= 1
+        else:
+            item.delete()
+            return JsonResponse({"deleted": True})
+
+    item.save()
+
+    return JsonResponse({
+        "quantity": item.quantity
+    })
+
+@require_POST
+@login_required
+def remove_item(request):
+    item_id = request.POST.get("item_id")
+    item = get_object_or_404(CartItem, id=item_id, user=request.user)
+    item.delete()
+
+    return JsonResponse({"deleted": True})

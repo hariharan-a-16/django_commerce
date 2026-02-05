@@ -1,17 +1,42 @@
 {% extends "base/base.html" %}
-{% block content %}
-<div class="container mt-5">
-  <h2>Step 2: Enter OTP</h2>
 
-  {% if error %}
-  <div class="alert alert-danger">
-    {{ error }}
+{% block content %}
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7">
+
+      <div class="card shadow-lg border-0">
+        <div class="card-body p-5">
+
+          <h3 class="text-center fw-bold mb-4">
+            Step 2: Verify OTP
+          </h3>
+
+          {% if error %}
+          <div class="alert alert-danger">
+            {{ error }}
+          </div>
+          {% endif %}
+
+          <form method="post">
+            {% csrf_token %}
+
+            <label class="form-label fw-semibold">Enter OTP</label>
+            <input type="text" name="otp" maxlength="6" class="form-control mb-4" placeholder="Enter OTP" required>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-success btn-lg">
+                Verify OTP
+              </button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+    </div>
   </div>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    <input type="text" name="otp" class="form-control mb-3" placeholder="Enter OTP" required>
-    <button type="submit" class="btn btn-success">Verify OTP</button>
-  </form>
 </div>
+
 {% endblock %}

@@ -119,3 +119,30 @@ class DeleteProductImage(DeleteView):
     def get_success_url(self):
         return reverse('product_details', kwargs={'pk':self.object.product.pk}) 
     
+# For Product detail add carousel image
+
+from django.shortcuts import get_object_or_404, redirect
+from .models import Product, ProductImage
+from .forms import ProductImageForm
+
+def AddImages(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if request.method == 'POST':
+        form = ProductImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            media = form.save(commit=False)
+            media.product = product
+            media.save()
+            return redirect('product_details', pk=pk)
+    else:
+        form = ProductImageForm()
+
+    return render(
+        request,
+        'product/includes/add_image_carousel.html',
+        {
+            'form': form,
+            'product': product
+        }
+    )

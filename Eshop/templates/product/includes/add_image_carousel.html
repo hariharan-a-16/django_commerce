@@ -1,47 +1,43 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-Edit Product Image
+Add carousel image
 {% endblock %}
 
 {% block content %}
+
 
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-6 col-md-8">
 
-            <div class="card shadow-lg border-0">
+            <div class="card media-form-card shadow-lg border-0">
                 <div class="card-body p-5">
 
-                    <h3 class="text-center fw-bold mb-4">
-                        Edit Image for {{ object.product.title }}
-                    </h3>
+                    <h4 class="text-center fw-bold mb-4">
+                        Upload Product Media
+                    </h4>
 
-                    <!-- Current Image Preview -->
-                    <div class="text-center mb-4">
-                        <img src="{{ object.img.url }}"  
-                             class="img-fluid rounded shadow" 
-                             style="max-height: 200px; object-fit: cover;">
-                    </div>
-
-                    <!-- Edit Form -->
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
 
                         {% for field in form %}
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">{{ field.label }}</label>
+                            <label class="form-label fw-semibold">
+                                {{ field.label }}
+                            </label>
                             {{ field }}
-
                             {% for error in field.errors %}
-                            <div class="text-danger small mt-1">{{ error }}</div>
+                            <div class="text-danger small mt-1">
+                                {{ error }}
+                            </div>
                             {% endfor %}
                         </div>
                         {% endfor %}
 
                         <div class="d-grid mt-4">
                             <button type="submit" class="btn btn-dark btn-lg">
-                                Save Changes
+                                Upload
                             </button>
                         </div>
                     </form>
@@ -52,5 +48,7 @@ Edit Product Image
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}
