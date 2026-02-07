@@ -37,13 +37,18 @@
           </ul>
         </li>
 
-       
+
       </ul>
-      <form class="d-flex search" role="search" method="get" action="{% url 'search_products' %}">
-        <input name='q' value='{{query}}' class="form-control me-2" type="search" placeholder="Search"
+      <form class="d-flex search {% if not user.is_staff %}user-wide{% endif %}" role="search" method="get"
+        action="{% url 'search_products' %}">
+
+        <input name='q' value='{{query}}' class="form-control me-2 search-input" type="search" placeholder="Search"
           aria-label="Search" />
+
         <button class="btn" type="submit">Search</button>
       </form>
+
+
 
 
       <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
@@ -54,7 +59,7 @@
             <i class="bi bi-cart3 fs-4"></i>
             {% if user.is_authenticated %}
             <span class="cart-badge" id="cart-count" data-count-url="{% url 'cart_count' %}">0</span>
-             {% endif %}
+            {% endif %}
           </a>
         </li>
         {% endif %}

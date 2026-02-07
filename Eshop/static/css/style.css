@@ -312,3 +312,25 @@
     transform: scale(1.15);
     background: #ff6b81;
 }
+
+/*   --------------------------------------------- */
+
+/* For Adjusut Search Bar */
+
+/* Do NOT let the form expand */
+.search {
+    flex-shrink: 0;
+}
+
+/* Default input width (admin login) */
+.search-input {
+    width: 250px;
+    transition: 0.3s ease;
+}
+
+/* Normal user → wider input */
+.user-wide .search-input {
+    width: 380px;
+}
+
+
