@@ -126,3 +126,40 @@ document.addEventListener("click", async function (event) {
     }
 });
 
+
+//  for Alert msg notify me product if available
+document.addEventListener("DOMContentLoaded", function () {
+    let notifyButtons = document.querySelectorAll(".notify-btn");
+
+    notifyButtons.forEach(btn => {
+        btn.addEventListener("click", function () {
+            let notifyModal = new bootstrap.Modal(document.getElementById("notifyModal"));
+            notifyModal.show();
+        });
+    });
+});
+
+
+
+// ==========================
+// Load Cart Count on page load
+// ==========================
+document.addEventListener("DOMContentLoaded", async function () {
+    const cartCountElement = document.getElementById("cart-count");
+
+    if (cartCountElement) {
+        const url = cartCountElement.dataset.countUrl;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.cart_count !== undefined) {
+                cartCountElement.innerText = data.cart_count;
+            }
+        } catch (error) {
+            console.error("Cart count load error:", error);
+        }
+    }
+});
+

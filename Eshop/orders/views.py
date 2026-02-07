@@ -1,3 +1,6 @@
+from django.shortcuts import render
+
+# Create your views here.
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.timezone import now
@@ -136,6 +139,4 @@ def cancel_order(request, order_id):
     else:
         messages.error(request, "This order cannot be cancelled.")
 
-    return redirect("home_page") 
-
-
+    return redirect("home_page")

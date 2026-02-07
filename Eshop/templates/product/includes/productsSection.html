@@ -1,15 +1,40 @@
-<section id="products-container" class="container my-4" data-add-url = "{% url 'add_to_cart' %}">
-{% csrf_token %}
+<section id="products-container" class="container my-4" data-add-url="{% url 'add_to_cart' %}">
+    {% csrf_token %}
     <div class="row g-4">
         {% for product in products %}
-            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                {% include 'product/includes/productCard.html' %}
-            </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+            {% include 'product/includes/productCard.html' %}
+        </div>
         {% empty %}
-            <div class="col-12 text-center">
-              <h4> <p class="text-muted">📦❓ No products available.</p> </h4>
-            </div>
+        <div class="col-12 text-center">
+            <h4>
+                <p class="text-muted">📦❓ No products available.</p>
+            </h4>
+        </div>
         {% endfor %}
     </div>
+
+    <!-- Notify Me Popup Message -->
+    <div class="modal fade" id="notifyModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Notify Me</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>We will notify you when this product is back in stock.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-dark" data-bs-dismiss="modal">Okay</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 </section>

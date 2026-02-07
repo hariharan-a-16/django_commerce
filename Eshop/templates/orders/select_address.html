@@ -1,27 +1,58 @@
 {% extends 'base/base.html' %}
 
 {% block title %}
-
+Select Address
 {% endblock %}
 
 {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    <h3>Select an Address</h3>
-    <ul>
-        {% for address in addresses %}
-        <li>
-            <label>
-                <input type="radio" name="address" value="{{ address.id }}">
-                {{ address.full_name }}, {{ address.address_line1 }}, {{ address.city }}, {{ address.state }} - {{ address.pincode }}
-            </label>
-        </li>
-        {% endfor %}
-    </ul>
-    <button type="submit" class="btn btn-primary">Select Address</button>
-</form>
-<a href="{% url 'add_address'  %}?next={{request.path}}" class="btn btn-secondary">Add address</a>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
 
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+
+                    <h3 class="text-center fw-bold mb-4">
+                        Select an Address
+                    </h3>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="list-group mb-4">
+                            {% for address in addresses %}
+                            <label class="list-group-item d-flex gap-3">
+                                <input type="radio" name="address" value="{{ address.id }}"
+                                    class="form-check-input mt-1" required>
+                                <span>
+                                    <strong>{{ address.full_name }}</strong><br>
+                                    {{ address.address_line1 }}, {{ address.city }}<br>
+                                    {{ address.state }} - {{ address.pincode }}
+                                </span>
+                            </label>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">
+                                Select Address
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="d-grid mt-3">
+                        <a href="{% url 'add_address' %}?next={{request.path}}"
+                            class="btn btn-outline-secondary btn-lg">
+                            Add New Address
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}

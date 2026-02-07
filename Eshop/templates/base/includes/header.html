@@ -53,7 +53,7 @@
           <a class="nav-link" href="{% url 'view_cart' %}">
             <i class="bi bi-cart3 fs-4"></i>
             {% if user.is_authenticated %}
-            <span class="cart-badge" id="cart-count">0</span>
+            <span class="cart-badge" id="cart-count" data-count-url="{% url 'cart_count' %}">0</span>
              {% endif %}
           </a>
         </li>
