@@ -7,57 +7,52 @@
 
     <h3 class="fw-bold mb-4">Your Cart</h3>
 
-{% for item in cart_items %}
-<div class="cart-card mb-3" id="cart-item-{{ item.id }}">
-    
-    <div class="row align-items-center">
-        
-        <!-- Product Image -->
-        <div class="col-md-3 col-12 text-center mb-3 mb-md-0">
-            <img src="{{ item.product.thumbnail.url }}" class="cart-product-img">
-        </div>
+    {% for item in cart_items %}
+    <div class="cart-card mb-3" id="cart-item-{{ item.id }}">
 
-        <!-- Product Details -->
-        <div class="col-md-6 col-12 mb-3 mb-md-0">
-            <h5 class="cart-title">{{ item.product.title }}</h5>
+        <div class="row align-items-center">
 
-            <p class="text-muted mb-1">Quantity: {{ item.quantity }}</p>
+            <!-- Product Image -->
+            <div class="col-md-3 col-12 text-center mb-3 mb-md-0">
+                <img src="{{ item.product.thumbnail.url }}" class="cart-product-img">
+            </div>
 
-            {% if item.product.discount > 0 %}
-                <span class="cart-discount">{{ item.product.discount }}% OFF</span>
-                <p class="cart-price">₹ {{ item.product.offer_price }}</p>
-            {% else %}
+            <!-- Product Details -->
+            <div class="col-md-6 col-12 mb-3 mb-md-0">
+                <h5 class="cart-title">{{ item.product.title }}</h5>
+                <p class="cart-desc">{{item.product.desc}}</p>
+                <p class="text-muted mb-1">Quantity: {{ item.quantity }}</p>
                 <p class="cart-price">₹ {{ item.product.price }}</p>
-            {% endif %}
 
-            <!-- Remove button -->
-            <p class="remove-btn update-remove" data-item="{{ item.id }}">
-                <i class="bi bi-trash"></i> Remove
-            </p>
+
+                <!-- Remove button -->
+                <p class="remove-btn update-remove" data-item="{{ item.id }}">
+                    <i class="bi bi-trash"></i> Remove
+                </p>
+            </div>
+
+            <!-- Quantity Controls -->
+            <div class="col-md-3 col-12 d-flex justify-content-md-end justify-content-start align-items-center gap-3">
+
+                <button class="btn btn-outline-primary qty-btn update-qty" data-action="decrease"
+                    data-item="{{ item.id }}">
+                    {% if item.quantity == 1 %}
+                    <i class="bi bi-trash"></i>
+                    {% else %}
+                    <i class="bi bi-dash"></i>
+                    {% endif %}
+                </button>
+
+                <span class="qty-number" id="qty-{{ item.id }}">{{ item.quantity }}</span>
+
+                <button class="btn btn-outline-primary qty-btn update-qty" data-action="increase"
+                    data-item="{{ item.id }}">
+                    <i class="bi bi-plus-lg"></i>
+                </button>
+
+            </div>
+
         </div>
-
-        <!-- Quantity Controls -->
-        <div class="col-md-3 col-12 d-flex justify-content-md-end justify-content-start align-items-center gap-3">
-            
-            <button class="btn btn-outline-primary qty-btn update-qty" 
-                    data-action="decrease" data-item="{{ item.id }}">
-                {% if item.quantity == 1 %}
-                <i class="bi bi-trash"></i>
-                {% else %}
-                <i class="bi bi-dash"></i>
-                {% endif %}
-            </button>
-
-            <span class="qty-number" id="qty-{{ item.id }}">{{ item.quantity }}</span>
-
-            <button class="btn btn-outline-primary qty-btn update-qty" 
-                    data-action="increase" data-item="{{ item.id }}">
-                <i class="bi bi-plus-lg"></i>
-            </button>
-
-        </div>
-
-    </div>
     </div>
     {% empty %}
 
@@ -87,8 +82,8 @@
             <span class="total-amount">Grand Total</span>
             <span class="total-amount">₹ {{ grand_total }}</span>
         </div>
+        <a href="{% url 'create_order' %}" class="btn btn-dark checkout-btn">Proceed to Checkout</a>
 
-        <button class="btn btn-primary checkout-btn">Proceed to Checkout</button>
     </div>
     {% endif %}
 
