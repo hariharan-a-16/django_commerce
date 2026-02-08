@@ -48,6 +48,9 @@ def create_razorpay_order(request, order_id):
     return render(request, "payments/checkout.html", context)
 
 
+from django.core.mail import send_mail
+from orders.models import OrderDetails
+
 @csrf_exempt
 def payment_success(request):
     """Handle the Razorpay payment success callback."""
@@ -80,6 +83,44 @@ def payment_success(request):
         payment.save()
         order.status = "COMPLETED"
         order.save()
+
+        # ------------- SEND ORDER CONFIRMATION EMAIL -------------
+        order_items = OrderDetails.objects.filter(order=order)
+
+        # Build details list
+        item_list = ""
+        for item in order_items:
+            item_list += f"{item.order_item.title} × {item.quantity} = ₹{item.price}\n"
+
+        subject = f"Your Order #{order.id} is Confirmed!"
+        message = f"""
+Hi {request.user.username},
+
+Your payment was successful! 🎉
+
+----- ORDER DETAILS -----
+Order ID: {order.id}
+Date: {order.order_date}
+
+Items:
+{item_list}
+
+Grand Total: ₹{order.total_amount}
+
+Your order is now confirmed and being processed.
+
+Thank you for shopping with Eshop!
+"""
+
+        # Send email
+        send_mail(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [order.user.email],
+            fail_silently=False,
+        )
+        # ---------------------------------------------------------
 
         return render(request, "payments/success.html", {"order": order})
 

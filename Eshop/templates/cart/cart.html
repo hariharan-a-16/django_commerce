@@ -5,7 +5,7 @@
 {% block content %}
 <section class="cart-wrapper">
     
-    <h3 class="fw-bold mb-4">Your Cart</h3>
+    <h3 class="fw-bold mb-4"> 🛒Your Cart</h3>
 
     {% for item in cart_items %}
     <div class="cart-card mb-3" id="cart-item-{{ item.id }}">
@@ -20,7 +20,7 @@
             <!-- Product Details -->
             <div class="col-md-6 col-12 mb-3 mb-md-0">
                 <h5 class="cart-title">{{ item.product.title }}</h5>
-                <p class="cart-desc">{{item.product.desc}}</p>
+                <p class="cart-desc">{{item.product.desc|truncatechars:90}}</p>
                 <p class="text-muted mb-1">Quantity: {{ item.quantity }}</p>
                 <p class="cart-price">₹ {{ item.product.price }}</p>
 
@@ -82,6 +82,7 @@
             <span class="total-amount">Grand Total</span>
             <span class="total-amount">₹ {{ grand_total }}</span>
         </div>
+        
         <a href="{% url 'create_order' %}" class="btn btn-dark checkout-btn">Proceed to Checkout</a>
 
     </div>
