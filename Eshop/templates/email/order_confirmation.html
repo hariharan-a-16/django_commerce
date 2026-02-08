@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+</head>
+
+<body style="font-family: Arial; background:#f6f6f6; padding:20px;">
+  
+  <div style="
+      max-width:600px; 
+      margin:auto; 
+      background:#ffffff; 
+      border-radius:10px; 
+      padding:20px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+  ">
+    
+    <h2 style="text-align:center; color:#2b8a3e;">Order Confirmed 🎉</h2>
+    
+    <p>Hi {{ username }},</p>
+    <p>Your order has been successfully placed!</p>
+
+    <h3 style="color:#444;">Order Details</h3>
+
+    <p><strong>Order ID:</strong> {{ order_id }}</p>
+    <p><strong>Date:</strong> {{ order_date }}</p>
+
+    <h3>Items:</h3>
+    <ul>
+      {% for item in items %}
+      <li>{{ item.title }} × {{ item.quantity }} — ₹{{ item.price }}</li>
+      {% endfor %}
+    </ul>
+
+    <h3>Total Amount: ₹{{ total_amount }}</h3>
+
+    <p>Your invoice PDF is attached to this email.</p>
+
+    <p style="font-size:14px; color:#888; text-align:center; margin-top:20px;">
+      Thank you for shopping with us ❤️<br>
+    </p>
+
+  </div>
+
+</body>
+</html>

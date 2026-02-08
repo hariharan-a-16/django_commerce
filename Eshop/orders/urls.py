@@ -24,6 +24,10 @@ urlpatterns = [
     # Route to update an existing order (optional, based on the `update_order` view)
     path('update/<int:order_id>/', views.update_order, name='update_order'),
     
-    path('order/cancel/<int:order_id>', views.cancel_order, name='cancel_order')
+    path('order/cancel/<int:order_id>', views.cancel_order, name='cancel_order'),
+
+
+    # for download invoice
+     path("order/<int:order_id>/invoice/", views.download_invoice, name="download_invoice"),
 
 ]

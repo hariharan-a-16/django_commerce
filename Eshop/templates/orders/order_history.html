@@ -27,14 +27,20 @@ Order History
             <td>₹{{ order.total_amount }}</td>
             <td>
                 {% if order.status == 'PENDING' %}
-                    <a href="{% url 'payment:create_razorpay_order' order.id %}" class="btn btn-success btn-sm">
-                        Pay Now
-                    </a>
+                <a href="{% url 'payment:create_razorpay_order' order.id %}" class="btn btn-success btn-sm">
+                    Pay Now
+                </a>
                 {% endif %}
+
                 <a href="{% url 'order_detail' order.id %}" class="btn btn-info btn-sm">
                     View Details
                 </a>
+
+                <a href="{% url 'download_invoice' order.id %}" class="btn btn-dark btn-sm mt-1">
+                    Download Invoice
+                </a>
             </td>
+
         </tr>
         {% endfor %}
     </tbody>

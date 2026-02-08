@@ -9,6 +9,7 @@ from django.contrib import messages
 from cart.models import CartItem
 from .models import Order, OrderDetails, Address
 from .forms import AddressForm, OrderForm
+from utils.invoice_generator import generate_invoice
 
 @login_required
 def create_order(request):
@@ -142,3 +143,23 @@ def cancel_order(request, order_id):
     return redirect("home_page")
 
 
+
+from django.http import FileResponse
+import os
+from utils.invoice_generator import generate_invoice
+
+@login_required
+def download_invoice(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = OrderDetails.objects.filter(order=order)
+
+    invoice_folder = "media/invoices"
+    os.makedirs(invoice_folder, exist_ok=True)
+
+    invoice_path = f"{invoice_folder}/invoice_{order.id}.pdf"
+
+    # Generate PDF if not exists
+    if not os.path.exists(invoice_path):
+        generate_invoice(invoice_path, order, order_items)
+
+    return FileResponse(open(invoice_path, "rb"), as_attachment=True, filename=f"invoice_{order.id}.pdf")
