@@ -18,7 +18,7 @@ if (products_container) {
         }
 
         const btn = event.target;
-        const product_card = btn.closest(".product-card");
+        const product_card = btn.closest(".product-card-section");
         const productId = product_card.dataset.productId;
 
         btn.disabled = true;
