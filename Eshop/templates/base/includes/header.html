@@ -1,8 +1,11 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+<nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm" id="mainNavbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"> <img src="{% static 'images/beast.png' %}" style="width: 60px; "> <b>Beast</b></a>
+    <a class="navbar-brand" href="{% url 'home_page' %}">
+      <img src="{% static 'images/beast.png' %}" style="width: 60px;" alt="Beast Logo">
+      <span class="brand-text"></span>
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -11,20 +14,26 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link {% if current_page == 'home' %} active {% endif %}" aria-current="page"
-            href="{% url 'home_page'%}">Home</a>
+            href="{% url 'home_page' %}">
+            <i class="bi bi-house-door me-1"></i>Home
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  {% if current_page == 'about' %} active {% endif %} "
-            href="{% url 'about_page'%}">About</a>
+          <a class="nav-link {% if current_page == 'about' %} active {% endif %}"
+            href="{% url 'about_page' %}">
+            <i class="bi bi-info-circle me-1"></i>About
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  {% if current_page == 'contact' %} active {% endif %}"
-            href="{% url 'contact_page'%}">Contact</a>
+          <a class="nav-link {% if current_page == 'contact' %} active {% endif %}"
+            href="{% url 'contact_page' %}">
+            <i class="bi bi-envelope me-1"></i>Contact
+          </a>
         </li>
         {% if user.is_staff %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Manage
+            <i class="bi bi-gear me-1"></i>Manage
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'products' %}">Products</a></li>
@@ -33,29 +42,22 @@
               <hr class="dropdown-divider">
             </li>
             {% endif %}
-
           </ul>
         </li>
-
-
       </ul>
       <form class="d-flex search {% if not user.is_staff %}user-wide{% endif %}" role="search" method="get"
         action="{% url 'search_products' %}">
-
-        <input name='q' value='{{query}}' class="form-control me-2 search-input" type="search" placeholder="Search"
+        <input name='q' value='{{query}}' class="form-control search-input" type="search" placeholder="Search jerseys..."
           aria-label="Search" />
-
-        <button class="btn" type="submit">Search</button>
+        <button class="btn btn-search" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
       </form>
 
-
-
-
       <ul class="navbar-nav ms-auto align-items-center mb-2 mb-lg-0">
-
         {% if not user.is_staff %}
         <li class="nav-item me-3 position-relative">
-          <a class="nav-link" href="{% url 'view_cart' %}">
+          <a class="nav-link cart-link" href="{% url 'view_cart' %}">
             <i class="bi bi-cart3 fs-4"></i>
             {% if user.is_authenticated %}
             <span class="cart-badge" id="cart-count" data-count-url="{% url 'cart_count' %}">0</span>
@@ -64,31 +66,26 @@
         </li>
         {% endif %}
 
-
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-person-circle me-1"></i>
+          <a class="nav-link dropdown-toggle d-flex align-items-center user-link" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle fs-4 me-1"></i>
             {% if user.is_authenticated %}
             {{user.username.capitalize}}
             {% else %}
-            Hi User!
+            Guest
             {% endif %}
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end">
-
             {% if user.is_authenticated %}
-
             <li>
               <a class="dropdown-item" href="{% url 'order_history' %}">
                 <i class="bi bi-bag-check me-2"></i> My Orders
               </a>
             </li>
-
             <li>
               <hr class="dropdown-divider">
             </li>
-
             <li>
               <form action="{% url 'logout' %}" method="post">
                 {% csrf_token %}
@@ -97,15 +94,13 @@
                 </button>
               </form>
             </li>
-
             {% else %}
-
-            <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>
-            <li><a class="dropdown-item" href="{% url 'signin' %}">Login</a></li>
-
+            <li><a class="dropdown-item" href="{% url 'signup' %}"><i class="bi bi-person-plus me-2"></i>Register</a></li>
+            <li><a class="dropdown-item" href="{% url 'signin' %}"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
             {% endif %}
           </ul>
-
+        </li>
+      </ul>
     </div>
   </div>
 </nav>

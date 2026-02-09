@@ -1,10 +1,44 @@
 
-<div class="mb-3">
+<div class="form-group">
     <label class="form-label">{{ field.label }}</label>
+    
+    {% if field.field.widget.input_type == 'select' %}
+        <select class="premium-select" name="{{ field.name }}" id="{{ field.id_for_label }}">
+            {% for choice in field.field.choices %}
+                <option value="{{ choice.0 }}" {% if field.value == choice.0 %}selected{% endif %}>{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+    {% elif field.field.widget.input_type == 'textarea' %}
+        <textarea 
+            class="premium-textarea {% if field.errors %}error{% endif %}" 
+            name="{{ field.name }}" 
+            id="{{ field.id_for_label }}" 
+            placeholder="{{ field.label }}"
+        >{{ field.value|default:'' }}</textarea>
+    {% elif field.field.widget.input_type == 'checkbox' %}
+        <label class="premium-checkbox">
+            {{ field }}
+            <span class="checkmark"></span>
+            <span class="checkbox-label">{{ field.label }}</span>
+        </label>
+    {% else %}
+        <input 
+            type="{{ field.field.widget.input_type|default:'text' }}" 
+            class="premium-input {% if field.errors %}error{% endif %}" 
+            name="{{ field.name }}" 
+            id="{{ field.id_for_label }}" 
+            value="{{ field.value|default:'' }}" 
+            placeholder="{{ field.label }}"
+        >
+    {% endif %}
 
-    {{ field }}
-
-    <div class="text-danger small">
-        {{ field.errors|striptags }}
-    </div>
+    {% if field.errors %}
+        <div class="form-error">
+            {{ field.errors|striptags }}
+        </div>
+    {% endif %}
+    
+    {% if field.help_text %}
+        <div class="form-helper">{{ field.help_text }}</div>
+    {% endif %}
 </div>

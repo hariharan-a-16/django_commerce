@@ -247,3 +247,62 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 });
+
+
+/* ======================================================
+   NAVBAR INTERACTIVE EFFECTS
+====================================================== */
+
+// Navbar scroll effect
+window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('mainNavbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    });
+});
+
+// Add active class on hover for nav items
+document.querySelectorAll('.navbar-nav .nav-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.querySelector('.nav-link').classList.add('hover-active');
+    });
+    item.addEventListener('mouseleave', function() {
+        this.querySelector('.nav-link').classList.remove('hover-active');
+    });
+});
+
+// Dropdown menu animation enhancement
+document.querySelectorAll('.dropdown-menu').forEach(menu => {
+    menu.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+});
+
+// Cart badge pulse animation on update
+function pulseCartBadge() {
+    const cartBadge = document.getElementById('cart-count');
+    if (cartBadge) {
+        cartBadge.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+            cartBadge.style.transform = 'scale(1)';
+        }, 200);
+    }
+}
+
+// Call this function when cart is updated
+window.pulseCartBadge = pulseCartBadge;
