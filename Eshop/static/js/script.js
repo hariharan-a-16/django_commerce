@@ -1,21 +1,117 @@
-// Cart handling
+/* ======================================================
+   TOAST (AUTO CREATE)
+====================================================== */
 
-// Add to cart
+function createToastBox() {
+    let toast = document.createElement("div");
+    toast.id = "toast-msg";
+    document.body.appendChild(toast);
+}
+createToastBox();
+
+function showToast(message, type = "default") {
+    const toast = document.getElementById("toast-msg");
+
+    toast.className = "";
+    toast.innerText = message;
+
+    // Always visible over modals
+    toast.style.zIndex = "9999999";
+
+    toast.classList.add("show");
+
+    if (type === "success") toast.classList.add("toast-success");
+    else if (type === "danger") toast.classList.add("toast-danger");
+    else if (type === "warning") toast.classList.add("toast-warning");
+    else if (type === "dark") toast.classList.add("toast-dark");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2000);
+}
+
+
+
+/* ======================================================
+   CONFIRM POPUP (AUTO CREATE)
+====================================================== */
+
+function createConfirmBox() {
+    let box = document.createElement("div");
+    box.id = "confirm-popup";
+
+    box.innerHTML = `
+        <p>Are you sure to remove?</p>
+        <button id="confirm-yes">Yes</button>
+        <button id="confirm-no">No</button>
+    `;
+
+    document.body.appendChild(box);
+}
+createConfirmBox();
+
+let pendingRemoveId = null;
+
+function showConfirm(itemId) {
+    pendingRemoveId = itemId;
+    document.getElementById("confirm-popup").classList.add("show");
+}
+
+function hideConfirm() {
+    document.getElementById("confirm-popup").classList.remove("show");
+}
+
+
+
+// YES → Remove
+document.addEventListener("click", async function (event) {
+    if (event.target.id === "confirm-yes") {
+
+        hideConfirm();
+
+        const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+        const response = await fetch("/cart/remove-item/", {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `item_id=${pendingRemoveId}`
+        });
+
+        const data = await response.json();
+
+        if (data.deleted) {
+            document.getElementById(`cart-item-${pendingRemoveId}`).remove();
+            showToast("Product removed!", "danger");
+            setTimeout(() => location.reload(), 400);
+        }
+    }
+
+    if (event.target.id === "confirm-no") {
+        hideConfirm();
+    }
+});
+
+
+
+/* ======================================================
+   ADD TO CART
+====================================================== */
+
 const products_container = document.getElementById('products-container');
 const cart_count = document.getElementById("cart-count");
 
 const csrfToken = document.querySelector("[name = csrfmiddlewaretoken]").value;
 
-// Run ONLY if products_container exists
 if (products_container) {
 
     const addUrl = products_container.dataset.addUrl;
 
     products_container.addEventListener('click', async function (event) {
 
-        if (!event.target.classList.contains('add-to-cart')) {
-            return;
-        }
+        if (!event.target.classList.contains('add-to-cart')) return;
 
         const btn = event.target;
         const product_card = btn.closest(".product-card-section");
@@ -33,19 +129,17 @@ if (products_container) {
                 },
                 body: `product_id=${productId}`
             });
-            const data = await response.json();
 
-            if (response.status === 401 && data.redirect_url) {
-                window.location.href = data.redirect_url;
-                return;
-            }
+            const data = await response.json();
 
             if (data.cart_count !== undefined) {
                 cart_count.innerText = data.cart_count;
             }
+
+            showToast(data.message || "Product added!", "success");
         }
-        catch (error) {
-            console.error("Cart error:", error);
+        catch {
+            showToast("Error adding product!", "danger");
         }
         finally {
             btn.disabled = false;
@@ -56,21 +150,17 @@ if (products_container) {
 
 
 
-// ==============================
-// Update Quantity in Cart Page
-// ==============================
+/* ======================================================
+   UPDATE QTY (Increase / Decrease Toast)
+====================================================== */
 
 document.addEventListener("click", async function (event) {
 
     const btn = event.target.closest(".update-qty");
-    if (!btn) return;  // Do nothing if clicked outside the qty buttons
+    if (!btn) return;
 
     const itemId = btn.dataset.item;
     const action = btn.dataset.action;
-
-    console.log("Updating item:", itemId, "Action:", action);
-
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
 
     const response = await fetch("/cart/update-qty/", {
         method: "POST",
@@ -85,66 +175,61 @@ document.addEventListener("click", async function (event) {
 
     if (data.deleted) {
         document.getElementById(`cart-item-${itemId}`).remove();
-        location.reload();
+        showToast("Item removed", "danger");
+
+        setTimeout(() => {
+            location.reload();
+        }, 900);
         return;
     }
 
-    document.getElementById(`qty-${itemId}`).innerText = data.quantity;
-    location.reload();
+    if (action === "increase") showToast("Quantity increased", "success");
+    if (action === "decrease") showToast("Quantity decreased", "warning");
+
+    setTimeout(() => {
+        location.reload();
+    }, 900);
 });
 
 
 
-// ==============================
-// Remove Item from Cart
-// ==============================
+/* ======================================================
+   REMOVE BUTTON → SHOW CONFIRM
+====================================================== */
 
-document.addEventListener("click", async function (event) {
+document.addEventListener("click", function (event) {
 
     const btn = event.target.closest(".update-remove");
     if (!btn) return;
 
     const itemId = btn.dataset.item;
-    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-
-    console.log("Removing item:", itemId);
-
-    const response = await fetch("/cart/remove-item/", {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": csrfToken,
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: `item_id=${itemId}`
-    });
-
-    const data = await response.json();
-
-    if (data.deleted) {
-        document.getElementById(`cart-item-${itemId}`).remove();
-        location.reload();
-    }
-});
-
-
-//  for Alert msg notify me product if available
-document.addEventListener("DOMContentLoaded", function () {
-    let notifyButtons = document.querySelectorAll(".notify-btn");
-
-    notifyButtons.forEach(btn => {
-        btn.addEventListener("click", function () {
-            let notifyModal = new bootstrap.Modal(document.getElementById("notifyModal"));
-            notifyModal.show();
-        });
-    });
+    showConfirm(itemId);
 });
 
 
 
-// ==========================
-// Load Cart Count on page load
-// ==========================
+/* ======================================================
+   NOTIFY BUTTON → TOAST ALERT
+====================================================== */
+
+document.addEventListener("click", function (event) {
+
+    const notifyBtn = event.target.closest(".notify-btn");
+    if (!notifyBtn) return;
+
+    const productId = notifyBtn.dataset.product;
+
+    showToast("We will notify you when the product is back in stock!", "dark");
+});
+
+
+
+/* ======================================================
+   LOAD CART COUNT
+====================================================== */
+
 document.addEventListener("DOMContentLoaded", async function () {
+
     const cartCountElement = document.getElementById("cart-count");
 
     if (cartCountElement) {
@@ -162,4 +247,3 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     }
 });
-

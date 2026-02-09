@@ -23,16 +23,16 @@ body {
 
 
 /* For Carousel */
-.homecarousel {
+/* .homecarousel {
     height: 550px;
-}
+} */
 
 
 .carousel-img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
+    height: 89vh;
+    /* object-fit: contain; */
+    width: 100vw;
+    
 }
 
 /* Mobile view */
@@ -326,6 +326,13 @@ body {
     font-weight: bold;
 }
 
+.btn-primary {
+    color: #fff !important;
+}
+
+
+
+
 .cart-wrapper {
     min-height: 80vh;
 }
@@ -372,4 +379,335 @@ body {
 /* Normal user → wider input */
 .user-wide .search-input {
     width: 380px;
+}
+
+
+
+
+/* Alert msg for Notify */
+
+/* ===== Custom Notify Modal Styling ===== */
+#notifyModal .modal-content {
+    border-radius: 18px;
+    padding: 10px 5px;
+    border: none;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.25);
+    animation: popIn 0.3s ease-out;
+}
+
+/* Header */
+#notifyModal .modal-header {
+    border-bottom: none;
+    justify-content: center;
+    background: linear-gradient(135deg, #000, #444);
+    color: #fff;
+    border-radius: 15px 15px 0 0;
+    padding: 18px;
+}
+
+#notifyModal .modal-title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+/* Body */
+#notifyModal .modal-body {
+    text-align: center;
+    font-size: 16px;
+    padding: 25px 20px;
+    color: #333;
+}
+
+/* Footer */
+#notifyModal .modal-footer {
+    border-top: none;
+    justify-content: center;
+    padding-bottom: 25px;
+}
+
+/* Button */
+#notifyModal .btn-dark {
+    background: #000;
+    padding: 10px 28px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+#notifyModal .btn-dark:hover {
+    background: #333;
+}
+
+/* Animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+
+/* for remove btn  */
+/* ======================================================
+   FIXED – STABLE MODERN TOAST (NO SLIDE ISSUE)
+====================================================== */
+
+#toast-msg {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    min-width: 200px;
+    max-width: 260px;
+
+    background: #0d6efd;
+    color: #fff;
+
+    padding: 12px 18px;
+    border-radius: 12px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+
+    z-index: 999999;
+}
+
+/* Show toast */
+#toast-msg.show {
+    opacity: 1;
+}
+
+/* COLOR TYPES */
+.toast-success { background: #28a745 !important; }
+.toast-danger  { background: #dc3545 !important; }
+.toast-warning { background: #ffc107 !important; color: #000 !important; }
+.toast-dark    { background: #343a40 !important; }
+
+/* ======================================================
+   CONFIRM POPUP
+====================================================== */
+
+#confirm-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    width: 260px;
+    background: #fff;
+
+    padding: 16px;
+    border-radius: 14px;
+    font-size: 15px;
+
+    box-shadow: 0 10px 28px rgba(0,0,0,0.25);
+    transform: translateX(150%);
+    transition: transform .35s ease;
+
+    z-index: 999999;
+}
+
+#confirm-popup.show {
+    transform: translateX(0);
+}
+
+#confirm-popup p {
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+#confirm-popup button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#confirm-yes { background: #dc3545; margin-right: 10px; }
+#confirm-no  { background: #6c757d; }
+
+/* MOBILE */
+@media (max-width: 480px) {
+    #toast-msg,
+    #confirm-popup {
+        right: 10px;
+        max-width: 200px;
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+}
+
+
+
+
+
+
+/* Product Details page */
+
+/* =======================================================
+   PRODUCT DETAILS – PREMIUM DARK UI
+======================================================= */
+/* =======================================================
+   LUXURY PREMIUM PRODUCT DETAILS PAGE (GUCCI STYLE)
+======================================================== */
+
+/* Page background */
+.luxury-wrapper {
+    background: #f3efe7;   /* Gucci beige */
+    padding: 60px 0;
+    font-family: 'Times New Roman', serif;
+}
+
+/* Main layout */
+.luxury-container {
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+    border: 2px solid #e5dcc5;
+}
+
+/* LEFT SIDE - IMAGE BOX */
+/* CLEAN MODERN CAROUSEL (no beige box) */
+.luxury-image-box {
+    padding: 0;
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.luxury-image-box img {
+    height: 450px;
+    width: 100%;
+    object-fit: contain;
+    background: #f7f7f7;  /* subtle clean bg */
+    border-radius: 10px;
+}
+
+
+/* Carousel arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.55);
+    padding: 25px;
+    border-radius: 50%;
+}
+
+/* Edit/Delete buttons (subtle gold outline) */
+.carousel-btn {
+    background: rgba(255,255,255,0.6) !important;
+    backdrop-filter: blur(4px);
+    color: #000 !important;
+    border: 1px solid #d4c4a8;
+    padding: 6px 14px;
+    border-radius: 10px;
+}
+
+/* RIGHT SIDE */
+.luxury-info {
+    padding-left: 30px;
+}
+
+/* Product Title */
+.luxury-title {
+    font-size: 34px;
+    font-weight: 700;
+    color: #2e261b;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* Description */
+.luxury-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    margin-top: 15px;
+    color: #4b4336;
+    font-family: "Georgia", serif;
+}
+
+/* Price */
+.luxury-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2b6b36;
+    margin-top: 10px;
+}
+
+/* Small features (Delivery, return, secure) */
+.luxury-features li {
+    font-size: 15px;
+    margin-bottom: 8px;
+    color: #756c5c;
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn-luxury-dark {
+    background: #2c2a29;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 40px;
+    border: 2px solid #b9b2a3;
+    font-weight: 600;
+    font-size: 15px;
+    transition: 0.3s ease;
+}
+
+.btn-luxury-dark:hover {
+    background: #4c4a48;
+}
+
+.btn-luxury-gold {
+    background: #d4c4a8;
+    color: #2e261b;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    border: 2px solid #bba98c;
+}
+
+.btn-luxury-red {
+    background: #c23232;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 600;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+
+    .luxury-info {
+        padding-left: 0;
+        margin-top: 30px;
+    }
+
+    .btn-luxury-dark,
+    .btn-luxury-gold,
+    .btn-luxury-red {
+        width: 100%;
+        margin-bottom: 10px;
+         
+    text-decoration: none;
+    }
+
+    .luxury-title {
+        font-size: 26px;
+    }
+
+    .luxury-image-box img {
+        height: 280px;
+    }
 }

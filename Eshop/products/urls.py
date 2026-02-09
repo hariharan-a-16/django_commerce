@@ -9,7 +9,7 @@ from .views import (
 from .views import (DeleteProductImage, EditProductImage)
 
 urlpatterns=[
-    path('all/',productView, name='product_page'),
+    path('all/',productView, name='products'),
     path('search/', searchProducts, name='search_products'),
 
     path('add/', CreateProduct.as_view(), name='add_product'),

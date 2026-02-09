@@ -1,13 +1,107 @@
+<style>
+    /* ======================================================
+   TOAST MESSAGE (RIGHT SIDE)
+====================================================== */
+    #toast-msg {
+        position: fixed;
+        top: 20px;
+        right: -300px;
+        padding: 12px 18px;
+        background: #0d6efd;
+        color: #fff;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: right 0.4s ease, opacity 0.3s;
+        z-index: 99999;
+        opacity: 0;
+    }
 
-<div class="cart-item card shadow-sm"
-     data-product-id="{{ item.product.id }}">
+    /* when visible */
+    #toast-msg.show {
+        right: 20px;
+        opacity: 1;
+    }
+
+
+    /* ======================================================
+   CONFIRMATION POPUP (RIGHT SIDE)
+====================================================== */
+    .confirm-box {
+        position: fixed;
+        top: 20px;
+        right: -350px;
+        width: 270px;
+        background: #fff;
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
+        transition: right 0.35s ease;
+        z-index: 999999;
+    }
+
+    .confirm-box.show {
+        right: 20px;
+    }
+
+    .confirm-text {
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .confirm-box button {
+        padding: 7px 15px;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .confirm-yes {
+        background: #dc3545;
+        color: white;
+        margin-right: 10px;
+    }
+
+    .confirm-no {
+        background: #6c757d;
+        color: white;
+    }
+
+    /* ======================================================
+   QTY CHANGE TOAST (RIGHT SIDE)
+====================================================== */
+
+#qty-toast {
+    position: fixed;
+    top: 70px;                  /* below your main toast */
+    right: -300px;              /* hidden initially */
+    background: #343a40;        /* dark grey */
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.25);
+    transition: right 0.4s ease, opacity 0.2s ease;
+    z-index: 999999;            /* always on top */
+    opacity: 0;
+}
+
+#qty-toast.show {
+    right: 20px;                /* slide in */
+    opacity: 1;
+}
+
+</style>
+<div class="cart-item card shadow-sm" data-product-id="{{ item.product.id }}">
 
     <div class="row g-0 align-items-center">
 
         <!-- Image -->
         <div class="col-md-3 text-center cart-thumb">
-            <img src="{{ item.product.thumbnail.url }}"
-                 class="img-fluid rounded">
+            <img src="{{ item.product.thumbnail.url }}" class="img-fluid rounded">
         </div>
 
         <!-- Details -->
@@ -31,18 +125,29 @@
                 <div class="cart-controls">
 
                     <!-- MINUS -->
-                    <button class="btn btn-outline-secondary btn-sm qty-minus">-</button>
+                    <button class="btn btn-outline-secondary btn-sm qty-minus" data-action="increase">-</button>
 
                     <!-- QTY -->
                     <span class="cart-qty qty">{{ item.quantity }}</span>
 
                     <!-- PLUS -->
-                    <button class="btn btn-outline-secondary btn-sm qty-plus">+</button>
+                    <button class="btn btn-outline-secondary btn-sm qty-plus " data-action="decrease">+</button>
 
                     <!-- REMOVE -->
                     <button class="btn btn-danger btn-sm ms-3 remove-item">
                         Remove
                     </button>
+
+                    <!-- REMOVE CONFIRMATION POPUP -->
+                    <div id="confirm-popup" class="confirm-box">
+                        <p class="confirm-text">Are you sure you want to remove this product?</p>
+                        <button class="confirm-yes">Yes</button>
+                        <button class="confirm-no">No</button>
+                    </div>
+
+                    <!-- AUTO TOAST MESSAGE -->
+                    <div id="toast-msg"></div>
+
 
                 </div>
 

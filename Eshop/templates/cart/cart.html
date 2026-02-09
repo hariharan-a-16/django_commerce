@@ -4,7 +4,7 @@
 
 {% block content %}
 <section class="cart-wrapper">
-    
+
     <h3 class="fw-bold mb-4"> 🛒Your Cart</h3>
 
     {% for item in cart_items %}
@@ -54,13 +54,17 @@
 
         </div>
     </div>
-    {% empty %}
+   {% empty %}
+<div class="cart-empty text-center" style="padding: 40px 0;">
+    <h3>Your cart is empty 😢</h3>
+    <p>Looks like you haven’t added anything yet.</p>
 
-    <div class="cart-empty">
-        Your cart is empty 😢
-    </div>
+    <a href="{% url 'products' %}" class="btn btn-primary mt-3">
+        Continue Shopping
+    </a>
+</div>
+{% endfor %}
 
-    {% endfor %}
 
     <!-- Summary Section -->
     {% if cart_items %}
@@ -82,7 +86,7 @@
             <span class="total-amount">Grand Total</span>
             <span class="total-amount">₹ {{ grand_total }}</span>
         </div>
-        
+
         <a href="{% url 'create_order' %}" class="btn btn-dark checkout-btn">Proceed to Checkout</a>
 
     </div>
