@@ -144,10 +144,10 @@ Product Details
                             {%endif%}
 
                             {% if user.is_staff %}
-                            <a href="{% url 'edit_product' product.pk %}" class="btn-luxury-gold me-2 text-decoration-none">Edit</a>
-                            <a href="{% url 'delete_product' product.pk %}" class="btn-luxury-red me-2 text-decoration-none">Delete</a>
-                            <a href="{% url 'add_image' product.pk %}" class="btn-luxury-gold text-decoration-none">
-                                <i class="bi bi-upload"></i> upload
+                            <a href="{% url 'edit_product' product.pk %}" class="btn btn-dark me-2 text-decoration-none">Edit</a>
+                            <a href="{% url 'delete_product' product.pk %}" class="btn btn-dark me-2 text-decoration-none">Delete</a>
+                            <a href="{% url 'add_image' product.pk %}" class="btn btn-dark text-decoration-none">
+                                <i class="bi bi-upload"></i> Upload
                             </a>
                             {% endif %}
                         </div>
