@@ -114,12 +114,140 @@ body {
 
 /*  */
 
+/* Forms for add Carousel */
+/* ---------- CARD STYLING ---------- */
+/* ---------- CARD STYLING ---------- */
+.card {
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+   
+}
+
+.card-body {
+    padding: 40px !important;
+}
+
+/* ---------- TITLE ---------- */
+.card-body h4 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: #222;
+}
+
+/* ---------- FORM LAYOUT ---------- */
+.carousel-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Remove extra gap from Django <p> elements */
+.carousel-form p {
+    margin-bottom: 12px;
+}
+
+/* ---------- LABELS ---------- */
+.carousel-form label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* ---------- INPUT FIELDS ---------- */
+.carousel-form input[type="text"],
+.carousel-form input[type="file"],
+.carousel-form select,
+.carousel-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.carousel-form input:focus,
+.carousel-form select:focus,
+.carousel-form textarea:focus {
+    border-color: #111;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+    outline: none;
+}
+/* Buttons will keep their original bootstrap style */
 
 
 
+/* Add Product Form  */
+/* ---------- CARD STYLING ---------- */
+.card {
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+}
+
+.card-body {
+    padding: 40px !important;
+}
+
+/* ---------- TITLE ---------- */
+.card-body h4 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+    color: #222;
+}
+
+/* ---------- FORM STYLE ---------- */
+.add-product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* ---------- LABELS ---------- */
+.add-product-form .form-label {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+/* ---------- INPUT FIELDS ---------- */
+.add-product-form input[type="text"],
+.add-product-form input[type="number"],
+.add-product-form input[type="file"],
+.add-product-form select,
+.add-product-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #fafafa;
+    font-size: 15px;
+    transition: all 0.2s ease;
+}
+
+.add-product-form input:focus,
+.add-product-form select:focus,
+.add-product-form textarea:focus {
+    border-color: #111;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+    outline: none;
+}
+
+/* ---------- ERRORS ---------- */
+.add-product-form .text-danger {
+    font-size: 13px;
+}
+
+/*  */
 
 .carousel-img {
-    height: 89vh;
+    height: 90vh;
     /* object-fit: contain; */
     width: 100vw;
 
@@ -143,34 +271,42 @@ body {
 }
 
 .product-card {
-    border: none;
+    width: 100%;
     border-radius: 16px;
     overflow: hidden;
     background: #ffffff;
     transition: all 0.3s ease;
-    position: relative;
+    border: 1px solid #eee;
+     box-shadow:
+        rgba(50, 50, 93, 0.20) 0px 20px 40px -10px,
+        rgba(0, 0, 0, 0.25) 0px 12px 24px -12px,
+        rgba(10, 37, 64, 0.25) 0px -1px 4px 0px inset;
 }
-
 
 .product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+    transform: translateY(-6px);
+    box-shadow:
+        rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+        rgba(0, 0, 0, 0.3) 0px 18px 36px -18px,
+        rgba(10, 37, 64, 0.35) 0px -1px 6px 0px inset;
 }
-
-
 .product-img {
-    object-fit: cover;
-    background-color: #f2f2f2;
+    height: 250px;               /* ↓ Reduced */
+    width: 100%;
+    object-fit: contain;
+    background: #f7f7f7;
+    padding: 15px;
 }
+
 
 .product-card .card-body {
-    padding: 16px;
+    padding: 14px;
 }
 
 .product-card .card-title {
-    font-size: 18px;
+    font-size: 16px;             /* ↓ Reduced */
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
 .desc {
@@ -182,15 +318,22 @@ body {
 
 
 .product-card .card-text {
-    font-size: 14px;
+    font-size: 13px;             /* ↓ Reduced */
     color: #555;
+    margin-bottom: 8px;
 }
 
+.stock-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+}
 
 .product-card .price {
-    font-size: 18px;
-    font-weight: bold;
+    font-size: 16px;             /* ↓ Reduced */
+    font-weight: 700;
     color: #198754;
+    margin-bottom: 10px;
 }
 
 .product-card .btn {
@@ -1168,9 +1311,6 @@ body {
 
 /* Product Details page */
 
-/* =======================================================
-   PRODUCT DETAILS – PREMIUM DARK UI
-======================================================= */
 /* =======================================================
    LUXURY PREMIUM PRODUCT DETAILS PAGE (GUCCI STYLE)
 ======================================================== */
@@ -2687,6 +2827,303 @@ body {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
+    }
+}
+
+/* =====================================================
+   ADD PRODUCT FORM STYLES
+   ===================================================== */
+.add-product-form .form-control,
+.add-product-form .form-select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fa;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.add-product-form .form-control:hover,
+.add-product-form .form-select:hover {
+    border-color: #d0d0d0;
+    background: #fff;
+}
+
+.add-product-form .form-control:focus,
+.add-product-form .form-select:focus {
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.add-product-form textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.add-product-form label.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.add-product-form .form-text {
+    font-size: 13px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.add-product-form .invalid-feedback {
+    font-size: 13px;
+    color: #dc3545;
+    margin-top: 6px;
+}
+
+.add-product-form .btn-add-product {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.add-product-form .btn-add-product:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+/* =====================================================
+   CAROUSEL FORM STYLES
+   ===================================================== */
+.carousel-form .form-control,
+.carousel-form .form-select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fa;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.carousel-form .form-control:hover,
+.carousel-form .form-select:hover {
+    border-color: #d0d0d0;
+    background: #fff;
+}
+
+.carousel-form .form-control:focus,
+.carousel-form .form-select:focus {
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.carousel-form label.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.carousel-form .form-text {
+    font-size: 13px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.carousel-form .invalid-feedback {
+    font-size: 13px;
+    color: #dc3545;
+    margin-top: 6px;
+}
+
+.carousel-form .btn-save-carousel {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+}
+
+.carousel-form .btn-save-carousel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.5);
+}
+
+.carousel-form .btn-cancel {
+    background: #6c757d;
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-form .btn-cancel:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* =====================================================
+   MEDIA FORM CARD STYLES (Add Image Carousel)
+   ===================================================== */
+.media-form-card .form-control,
+.media-form-card .form-select {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    color: #333;
+    background: #f8f9fa;
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.media-form-card .form-control:hover,
+.media-form-card .form-select:hover {
+    border-color: #d0d0d0;
+    background: #fff;
+}
+
+.media-form-card .form-control:focus,
+.media-form-card .form-select:focus {
+    border-color: #667eea;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.media-form-card label.form-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.media-form-card .form-text {
+    font-size: 13px;
+    color: #888;
+    margin-top: 6px;
+}
+
+.media-form-card .invalid-feedback {
+    font-size: 13px;
+    color: #dc3545;
+    margin-top: 6px;
+}
+
+.media-form-card .btn-upload {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 14px 28px;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.media-form-card .btn-upload:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+}
+
+/* File input styling for carousel/media forms */
+.carousel-form input[type="file"],
+.media-form-card input[type="file"] {
+    padding: 10px;
+    background: #f8f9fa;
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.carousel-form input[type="file"]:hover,
+.media-form-card input[type="file"]:hover {
+    border-color: #667eea;
+    background: rgba(102, 126, 234, 0.05);
+}
+
+/* Form field animation */
+.add-product-form .mb-4,
+.carousel-form .mb-4,
+.media-form-card .mb-4 {
+    animation: fadeInUp 0.4s ease forwards;
+    opacity: 0;
+}
+
+.add-product-form .mb-4:nth-child(1),
+.carousel-form .mb-4:nth-child(1),
+.media-form-card .mb-4:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.add-product-form .mb-4:nth-child(2),
+.carousel-form .mb-4:nth-child(2),
+.media-form-card .mb-4:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.add-product-form .mb-4:nth-child(3),
+.carousel-form .mb-4:nth-child(3),
+.media-form-card .mb-4:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.add-product-form .mb-4:nth-child(4),
+.carousel-form .mb-4:nth-child(4),
+.media-form-card .mb-4:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.add-product-form .mb-4:nth-child(5),
+.carousel-form .mb-4:nth-child(5),
+.media-form-card .mb-4:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.add-product-form .mb-4:nth-child(6),
+.carousel-form .mb-4:nth-child(6),
+.media-form-card .mb-4:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

@@ -9,20 +9,20 @@
             <div class="card shadow-lg border-0">
                 <div class="card-body p-5">
 
-                    <h4 class="text-center fw-bold mb-4">
+                    <h4 class="text-center fw-bold text-dark mb-4">
                         {% if object %}Edit{% else %}Add{% endif %} Carousel Image
                     </h4>
 
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" class="carousel-form">
                         {% csrf_token %}
                         {{ form.as_p }}
 
                         <div class="d-flex gap-2">
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn-save-carousel">
                                 Save
                             </button>
 
-                            <a href="{% url 'carousel_list' %}" class="btn btn-secondary">
+                            <a href="{% url 'carousel_list' %}" class="btn-cancel">
                                 Cancel
                             </a>
                         </div>

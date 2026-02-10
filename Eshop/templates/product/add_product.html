@@ -13,11 +13,11 @@ Add Product
             <div class="card shadow-lg border-0">
                 <div class="card-body p-5">
 
-                    <h4 class="text-center fw-bold mb-4">
+                    <h4 class="text-center fw-bold text-dark mb-4">
                         Add New Product
                     </h4>
 
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" class="add-product-form">
                         {% csrf_token %}
 
                         {% for field in form %}
@@ -35,7 +35,7 @@ Add Product
                         {% endfor %}
 
                         <div class="d-grid mt-4">
-                            <button type="submit" class="btn btn-dark btn-lg">
+                            <button type="submit" class="btn-add-product">
                                 Add Product
                             </button>
                         </div>
