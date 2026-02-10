@@ -306,3 +306,16 @@ function pulseCartBadge() {
 
 // Call this function when cart is updated
 window.pulseCartBadge = pulseCartBadge;
+
+// for after click send messge 
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Simple success alert
+    alert("Your message was sent successfully!");
+
+    // Reset form after alert
+    this.reset();
+});
+

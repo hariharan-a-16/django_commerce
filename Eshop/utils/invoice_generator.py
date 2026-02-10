@@ -2,6 +2,7 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.lib.units import mm
+from decimal import Decimal, ROUND_HALF_UP
 import os
 
 
@@ -10,59 +11,74 @@ def generate_invoice(invoice_path, order, order_items):
     c = canvas.Canvas(invoice_path, pagesize=A4)
     width, height = A4
 
+    LEFT = 30      # left margin
+    RIGHT = width - 30
+    y = height - 50
+
     # ======================================================
     #                HEADER - SHOP DETAILS
     # ======================================================
     c.setFont("Helvetica-Bold", 22)
-    c.drawString(30, height - 50, "BEAST ARMS & AMMUNITIONS")
+    c.drawString(LEFT, y, "STYLOO JERSEY SHOP")
 
     c.setFont("Helvetica", 10)
-    c.drawString(30, height - 70, "High Grade Arms | Tactical Gear | Licensed Products")
-    c.drawString(30, height - 85, "Email: support@beastarms.com | Phone: +91 90000 00000")
+    y -= 20
+    c.drawString(LEFT, y, "Premium Jerseys | Stylish Apparel | Trusted Quality")
+    y -= 15
+    c.drawString(LEFT, y, "Email: support@styloo.com | Phone: +91 90000 00000")
 
-    # Line under header
-    c.line(30, height - 95, width - 30, height - 95)
+    y -= 15
+    c.line(LEFT, y, RIGHT, y)
 
     # ======================================================
-    #                 INVOICE TITLE + ORDER INFO
+    #                INVOICE + ORDER INFO
     # ======================================================
+    y -= 40
     c.setFont("Helvetica-Bold", 18)
-    c.drawString(30, height - 125, "INVOICE")
+    c.drawString(LEFT, y, "INVOICE")
 
-    c.setFont("Helvetica", 12)
-    c.drawString(30, height - 155, f"Invoice No: {order.id}")
-    c.drawString(30, height - 175, f"Date: {order.order_date.strftime('%d-%m-%Y %H:%M')}")
+    # Order Info
+    c.setFont("Helvetica", 11)
+    y -= 30
+    c.drawString(LEFT, y, f"Invoice No: {order.id}")
+    y -= 20
+    c.drawString(LEFT, y, f"Date: {order.order_date.strftime('%d-%m-%Y %H:%M')}")
 
     # ======================================================
-    #                  CUSTOMER DETAILS
+    #                CUSTOMER DETAILS
     # ======================================================
+    y -= 40
     c.setFont("Helvetica-Bold", 14)
-    c.drawString(30, height - 210, "Customer Details")
+    c.drawString(LEFT, y, "Customer Details")
 
     c.setFont("Helvetica", 11)
-    c.drawString(30, height - 230, f"Name: {order.user.username}")
+    y -= 20
+    c.drawString(LEFT, y, f"Name: {order.user.username}")
 
-    # OPTIONAL — If you have address fields:
     try:
-        c.drawString(30, height - 250, f"Address: {order.address.address_line}")
-        c.drawString(30, height - 270, f"City: {order.address.city}")
-        c.drawString(30, height - 290, f"Phone: {order.address.phone}")
+        y -= 20
+        c.drawString(LEFT, y, f"Address: {order.address.address_line}")
+        y -= 20
+        c.drawString(LEFT, y, f"City: {order.address.city}")
+        y -= 20
+        c.drawString(LEFT, y, f"Phone: {order.address.phone}")
     except:
-        c.drawString(30, height - 250, "Address: N/A")
+        y -= 20
+        c.drawString(LEFT, y, "Address: N/A")
 
     # ======================================================
-    #                 PRODUCT TABLE HEADERS
+    #                PRODUCT TABLE HEADER
     # ======================================================
-    y = height - 330
-
+    y -= 40
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(30, y, "Product")
-    c.drawString(240, y, "Qty")
-    c.drawString(300, y, "Price")
-    c.drawString(380, y, "Image")
+    c.drawString(LEFT, y, "Product")
+    c.drawString(260, y, "Qty")
+    c.drawString(320, y, "Price")
+    c.drawString(400, y, "Image")
 
-    c.line(30, y - 5, width - 30, y - 5)
-    y -= 30
+    y -= 10
+    c.line(LEFT, y, RIGHT, y)
+    y -= 25
 
     # ======================================================
     #                PRODUCT TABLE ROWS
@@ -71,73 +87,78 @@ def generate_invoice(invoice_path, order, order_items):
 
     for item in order_items:
 
-        # Product name
-        c.drawString(30, y, item.order_item.title[:35])
+        c.drawString(LEFT, y, item.order_item.title[:40])
+        c.drawString(260, y, str(item.quantity))
+        c.drawString(320, y, f"₹{item.price}")
 
-        # Qty
-        c.drawString(240, y, str(item.quantity))
-
-        # Price
-        c.drawString(300, y, f"₹{item.price}")
-
-        # Product Image
         try:
             img_path = item.order_item.thumbnail.path
             if os.path.exists(img_path):
-                c.drawImage(ImageReader(img_path), 380, y - 15, width=40, height=40, mask='auto')
-            else:
-                c.drawString(380, y, "No Image")
+                c.drawImage(ImageReader(img_path), 400, y - 15, width=35, height=35)
         except:
-            c.drawString(380, y, "No Image")
+            c.drawString(400, y, "No Image")
 
         y -= 50
 
-        if y < 120:
+        if y < 150:
             c.showPage()
             y = height - 100
 
     # ======================================================
-    #                PRICE SUMMARY BOX
+    #                PRICE SUMMARY (Right aligned)
     # ======================================================
+    y -= 20
     c.setFont("Helvetica-Bold", 12)
-    c.drawString(30, y - 20, "Subtotal:")
-    c.drawString(150, y - 20, f"₹{order.total_amount}")
+    c.drawString(LEFT, y, "Subtotal:")
+    c.drawRightString(RIGHT, y, f"₹{order.total_amount}")
 
-    delivery_charge = 0
-    gst = round(order.total_amount * 0.12)
+    delivery_charge = Decimal("0.00")
+    gst_rate = Decimal("0.12")
+    gst = (order.total_amount * gst_rate).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
 
-    c.drawString(30, y - 40, "Delivery Charge:")
-    c.drawString(150, y - 40, f"₹{delivery_charge}")
+    y -= 20
+    c.drawString(LEFT, y, "Delivery Charge:")
+    c.drawRightString(RIGHT, y, f"₹{delivery_charge}")
 
-    c.drawString(30, y - 60, "GST (12%):")
-    c.drawString(150, y - 60, f"₹{gst}")
+    y -= 20
+    c.drawString(LEFT, y, "GST (12%):")
+    c.drawRightString(RIGHT, y, f"₹{gst}")
 
     # Grand Total
-    grand_total = order.total_amount + delivery_charge + gst
+    grand_total = (order.total_amount + delivery_charge + gst).quantize(Decimal("0.01"))
 
+    y -= 30
     c.setFont("Helvetica-Bold", 14)
-    c.drawString(30, y - 90, f"Grand Total: ₹{grand_total}")
-    c.line(30, y - 95, 200, y - 95)
+    c.drawString(LEFT, y, "Grand Total:")
+    c.drawRightString(RIGHT, y, f"₹{grand_total}")
+
+    c.line(LEFT, y - 5, RIGHT, y - 5)
 
     # ======================================================
-    #                 PAID / UNPAID STAMP
+    #                PAID / UNPAID (Top Right)
     # ======================================================
-    c.setFont("Helvetica-Bold", 40)
-    if order.status == "PAID":
+    c.setFont("Helvetica-Bold", 34)
+
+    status = order.status.upper()   # convert to uppercase
+
+# Treat these as PAID
+    paid_statuses = ["PAID", "COMPLETED", "SUCCESS"]
+
+    if status in paid_statuses:
         c.setFillColorRGB(0, 0.6, 0)
-        c.drawString(350, y - 20, "PAID")
+        c.drawRightString(RIGHT, height - 140, "PAID")
     else:
         c.setFillColorRGB(0.8, 0, 0)
-        c.drawString(330, y - 20, "UNPAID")
+        c.drawRightString(RIGHT, height - 140, "UNPAID")
 
     c.setFillColorRGB(0, 0, 0)
 
     # ======================================================
-    #                 FOOTER
+    #                FOOTER
     # ======================================================
     c.setFont("Helvetica", 10)
-    c.drawString(30, 40, "Thank you for shopping with Beast Arms.")
-    c.drawString(30, 25, "This invoice is system-generated and does not require signature.")
+    c.drawString(LEFT, 40, "Thank you for shopping with Styloo.")
+    c.drawString(LEFT, 25, "This invoice is auto-generated and requires no signature.")
 
     c.showPage()
     c.save()

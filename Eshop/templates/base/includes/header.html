@@ -2,10 +2,11 @@
 
 <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm" id="mainNavbar">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home_page' %}">
-      <img src="{% static 'images/beast.png' %}" style="width: 60px;" alt="Beast Logo">
-      <span class="brand-text"></span>
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home_page' %}">
+      <img src="{% static 'images/logo/logo.png' %}" class="brand-logo" alt="Styloo Logo">
     </a>
+
+
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -19,14 +20,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if current_page == 'about' %} active {% endif %}"
-            href="{% url 'about_page' %}">
+          <a class="nav-link {% if current_page == 'about' %} active {% endif %}" href="{% url 'about_page' %}">
             <i class="bi bi-info-circle me-1"></i>About
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {% if current_page == 'contact' %} active {% endif %}"
-            href="{% url 'contact_page' %}">
+          <a class="nav-link {% if current_page == 'contact' %} active {% endif %}" href="{% url 'contact_page' %}">
             <i class="bi bi-envelope me-1"></i>Contact
           </a>
         </li>
@@ -47,8 +46,8 @@
       </ul>
       <form class="d-flex search {% if not user.is_staff %}user-wide{% endif %}" role="search" method="get"
         action="{% url 'search_products' %}">
-        <input name='q' value='{{query}}' class="form-control search-input" type="search" placeholder="Search jerseys..."
-          aria-label="Search" />
+        <input name='q' value='{{query}}' class="form-control search-input" type="search"
+          placeholder="Search jerseys..." aria-label="Search" />
         <button class="btn btn-search" type="submit">
           <i class="bi bi-search"></i>
         </button>
@@ -79,9 +78,11 @@
           <ul class="dropdown-menu dropdown-menu-end">
             {% if user.is_authenticated %}
             <li>
+              {% if not user.is_staff %}
               <a class="dropdown-item" href="{% url 'order_history' %}">
                 <i class="bi bi-bag-check me-2"></i> My Orders
               </a>
+              {% endif %}
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -95,8 +96,10 @@
               </form>
             </li>
             {% else %}
-            <li><a class="dropdown-item" href="{% url 'signup' %}"><i class="bi bi-person-plus me-2"></i>Register</a></li>
-            <li><a class="dropdown-item" href="{% url 'signin' %}"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'signup' %}"><i class="bi bi-person-plus me-2"></i>Register</a>
+            </li>
+            <li><a class="dropdown-item" href="{% url 'signin' %}"><i
+                  class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
             {% endif %}
           </ul>
         </li>
