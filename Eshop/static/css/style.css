@@ -893,7 +893,6 @@ body {
     }
 }
 
-/* Footer */
 
 
 .add {
@@ -3127,3 +3126,93 @@ body {
     }
 }
 
+/* Footer */
+
+/* FOOTER MAIN */
+.styloo-footer {
+    background: #1a1f1a;
+    color: #dcdcdc;
+    padding: 25px 0;
+    border-top: 3px solid #3a4a3a;
+}
+
+.footer-box {
+    max-width: 1100px;
+    margin: auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* Title & Tagline */
+.footer-title {
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.footer-tagline {
+    font-size: 12px;
+    color: #bbb;
+    margin-bottom: 15px;
+}
+
+/* Divider */
+.footer-line {
+    border-color: #3a4a3a;
+    margin: 15px 0;
+}
+
+/* Flex Layout */
+.footer-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Left content */
+.footer-left p {
+    font-size: 12px;
+    margin: 4px 0;
+    text-align: left;
+}
+a{
+    color: white;
+    
+}
+
+/* Right side icons */
+.footer-right {
+    min-width: 280px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+.footer-right a {
+    margin-left: 0;      /* remove extra space */
+    margin-right: 12px;  /* add clean spacing */
+    display: inline-flex;
+    align-items: center;
+}
+
+
+.footer-right a:hover {
+    color: #000;
+    transform: scale(1.15);
+}
+
+/* Copyright */
+.footer-copy {
+    text-align: center;
+    font-size: 11px;
+    margin-top: 15px;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .footer-right {
+        text-align: left;
+        margin-top: 20px;
+    }
+}
